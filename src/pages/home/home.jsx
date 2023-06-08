@@ -1,18 +1,11 @@
 import "../../styles/style.css";
-import Sidebar from "../../components/sidebar";
-import Search from "../../components/search";
+import Sidebar from "../../components/nav/sidebar";
+import Search from "../../components/nav/search";
 import { useEffect, useState } from "react";
-import Trending from "../../components/trending";
-import Popular from "../../components/popular";
-import NowPlaying from "../../components/nowPlaying";
-import ImagesID from "../../components/imagesID";
+import GridPreview from '../../components/GridPreview';
+import SliderPreview from "../../components/sliderPreview";
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
-  const [searchKey, setSearchKey] = useState("");
-  const [trailer, setTrailer] = useState(null);
-  const [movie, setMovie] = useState({ title: "Loading Movies" });
-  const [playing, setPlaying] = useState(false);
 
   const API_URL = "https://api.themoviedb.org/3";
   const API_KEY = "a5c29d96fe50ca375e2070a79cee4d16";
@@ -22,32 +15,73 @@ const Home = () => {
   return (
     <div className="home">
       <Sidebar />
+
       <div className="home_body">
-        <Search API_KEY={API_KEY} URL_IMAGE={URL_IMAGE} />
-        <Trending
+        <Search  API_KEY={API_KEY}  API_URL={API_URL}/>
+
+        <SliderPreview
           API_KEY={API_KEY}
           API_URL={API_URL}
+          CATEGORY={"trending"}
           TYPE={"movie"}
           URL_IMAGE={URL_IMAGE}
         />
-        <Popular
+
+        <GridPreview
           API_KEY={API_KEY}
           API_URL={API_URL}
           TYPE={"movie"}
+          CATEGORY={"popular"}
           URL_IMAGE={URL_IMAGE}
         />
-        <NowPlaying
+
+        <GridPreview
           API_KEY={API_KEY}
           API_URL={API_URL}
           TYPE={"movie"}
+          CATEGORY={"now_playing"}
           URL_IMAGE={URL_IMAGE}
         />
-        {/* <ImagesID
+
+        <GridPreview
           API_KEY={API_KEY}
           API_URL={API_URL}
           TYPE={"movie"}
+          CATEGORY={"upcoming"}
           URL_IMAGE={URL_IMAGE}
-        /> */}
+        />
+
+        <GridPreview
+          API_KEY={API_KEY}
+          API_URL={API_URL}
+          TYPE={"movie"}
+          CATEGORY={"top_rated"}
+          URL_IMAGE={URL_IMAGE}
+        />
+
+        <SliderPreview
+          API_KEY={API_KEY}
+          API_URL={API_URL}
+          CATEGORY={"trending"}
+          TYPE={"tv"}
+          URL_IMAGE={URL_IMAGE}
+        />
+
+        <GridPreview
+          API_KEY={API_KEY}
+          API_URL={API_URL}
+          TYPE={"tv"}
+          CATEGORY={"popular"}
+          URL_IMAGE={URL_IMAGE}
+        />
+
+        <GridPreview
+          API_KEY={API_KEY}
+          API_URL={API_URL}
+          TYPE={"tv"}
+          CATEGORY={"airing_today"}
+          URL_IMAGE={URL_IMAGE}
+        />
       </div>
     </div>
   );
