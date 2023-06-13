@@ -18,7 +18,7 @@ const Home = () => {
           href="https://www.linkedin.com/in/benitez-marcelo"
           style={{ textDecoration: "none", fontWeight: "800" , fontStyle:'italic'}}
         >
-          Marce Benitez (ɔ◔‿◔)ɔ ♥
+          Marce Benitez ♥
         </a>
       </span>
       <div className="home">
