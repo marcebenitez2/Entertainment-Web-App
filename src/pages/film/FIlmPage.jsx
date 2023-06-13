@@ -119,11 +119,11 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
     <div className="home">
       <Sidebar />
       <div className="home_body">
-        <Search />
+        <Search API_KEY={API_KEY} API_URL={API_URL} />
         <div className="film">
           <img src={`${URL_IMAGE + film.poster_path}`} alt="poster" />
           <div className="film_info">
-            <div style={{ display: "flex", gap: "2rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div>
                 {film.title ? <h1>{film.title}</h1> : <h1>{film.name}</h1>}
                 <h5 style={{ color: "#9c9c9c", fontWeight: "700" }}>
@@ -166,7 +166,9 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
               </div>
               <div className="film_date">
                 <span className="date_title">Date</span>
-                <span>{film.release_date ? film.release_date : film.first_air_date}</span>
+                <span>
+                  {film.release_date ? film.release_date : film.first_air_date}
+                </span>
               </div>
             </div>
             <div className="film_text">

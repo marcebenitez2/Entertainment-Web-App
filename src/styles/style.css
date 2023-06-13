@@ -590,12 +590,18 @@ body {
 .heart_toggle_on {
   font-size: 50px;
   cursor: pointer;
+  position: relative;
+  top: 2rem;
+ 
 }
 
 .heart_toggle_off {
   font-size: 50px;
   opacity: 0.3;
   cursor: pointer;
+  position: relative;
+  top: 2rem;
+ 
 }
 
 /* -----------------------------Genre film search---------------------- */
@@ -796,4 +802,9 @@ body {
     width: 26vw;
     height: 10rem;
   }
+
+  .film_genre {
+  display: flex;
+  gap: 1px;
+}
 }
