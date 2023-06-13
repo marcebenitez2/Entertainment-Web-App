@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTv } from "@fortawesome/free-solid-svg-icons";
 import { faFilm } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-// import { PreviewContext } from "../AppRouting";
 
 const GridPreview = ({ API_KEY, API_URL, TYPE, CATEGORY, URL_IMAGE }) => {
   const [gridPreview, setGridPreview] = useState([]);
@@ -18,7 +17,6 @@ const GridPreview = ({ API_KEY, API_URL, TYPE, CATEGORY, URL_IMAGE }) => {
       },
     });
     setGridPreview(results);
-    // console.log(results)
   };
 
   useEffect(() => {
@@ -35,8 +33,8 @@ const GridPreview = ({ API_KEY, API_URL, TYPE, CATEGORY, URL_IMAGE }) => {
 
   return (
     <div>
-      <div className="grid_container">
-        <div className="grid_title">
+      <div className="gridpreview_container">
+        <div className="gridpreview_title">
           {CATEGORY === "now_playing" ? (
             <h1>
               {CATEGORY.replace(/_/g, " ").replace(/\b\w/g, (c) =>
@@ -53,21 +51,24 @@ const GridPreview = ({ API_KEY, API_URL, TYPE, CATEGORY, URL_IMAGE }) => {
           )}
         </div>
 
-        <div className="preview_grid">
+        <div className="gridpreview_grid">
           {TYPE === "movie"
             ? showGrid.map((preview, index) => (
                 <div
                   key={preview.id}
-                  className={`preview_${index}`}
+                  className={`preview_${index} item_grilla`}
                   style={{ cursor: "pointer" }}
                   onClick={() => handlePreviewClick(preview.id)}
                 >
+                  
                   <img
                     src={`${URL_IMAGE + preview.backdrop_path}`}
-                    className="img_preview"
                   ></img>
-                  <div className="grid_info">
-                    <div className="grid_dates">
+
+                  <div className="gridpreview_info">
+                    
+                    <div className="gridpreview_dates">
+                      
                       <span style={{ color: "#9c9c9c" }}>
                         {preview.release_date.substring(0, 4)}
                       </span>
@@ -92,14 +93,14 @@ const GridPreview = ({ API_KEY, API_URL, TYPE, CATEGORY, URL_IMAGE }) => {
                         ·{TYPE}
                       </span>
                     </div>
-                    <h6 className="grid_title">{`${preview.title}`}</h6>
+                    <p className="grid_title">{`${preview.title}`}</p>
                   </div>
                 </div>
               ))
             : showGrid.map((preview, index) => (
                 <div
                   key={preview.id}
-                  className={`preview_${index}`}
+                  className={`preview_${index} item_grilla`}
                   style={{ cursor: "pointer" }}
                   onClick={() => handlePreviewClick(preview.id)}
                 >
@@ -115,8 +116,8 @@ const GridPreview = ({ API_KEY, API_URL, TYPE, CATEGORY, URL_IMAGE }) => {
                     ></img>
                   )}
 
-                  <div className="grid_info">
-                    <div className="grid_dates">
+                  <div className="gridpreview_info">
+                    <div className="gridpreview_dates">
                       <span style={{ color: "#9c9c9c" }}>
                         {preview.first_air_date.substring(0, 4)}
                       </span>
@@ -141,7 +142,7 @@ const GridPreview = ({ API_KEY, API_URL, TYPE, CATEGORY, URL_IMAGE }) => {
                         ·{TYPE}
                       </span>
                     </div>
-                    <h6>{`${preview.name}`}</h6>
+                    <p className="grid_title">{`${preview.name}`}</p>
                   </div>
                 </div>
               ))}

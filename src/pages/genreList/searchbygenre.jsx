@@ -19,7 +19,6 @@ const Searchbygenre = ({ API_URL, API_KEY, URL_IMAGE }) => {
       type = "tv";
     }
 
-    console.log(idgenre, type);
   }
 
   const fetchFilmByGenre = async () => {
@@ -38,10 +37,6 @@ const Searchbygenre = ({ API_URL, API_KEY, URL_IMAGE }) => {
     captureParams(params);
     fetchFilmByGenre();
   }, []);
-
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
 
   return (
     <div className="home">

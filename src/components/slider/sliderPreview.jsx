@@ -45,6 +45,8 @@ const SliderPreview = ({ API_KEY, API_URL, CATEGORY, TYPE, URL_IMAGE }) => {
         options={{
           type: "loop",
           perPage: 5,
+          width: '100%',
+
           breakpoints: {
             1626: {
               perPage: 4,
@@ -52,13 +54,15 @@ const SliderPreview = ({ API_KEY, API_URL, CATEGORY, TYPE, URL_IMAGE }) => {
             1364: {
               perPage: 3,
             },
-            860: {
-              perPage: 3,
-              gap: 2,
-            },
-            541: {
+            830: {
               perPage: 2,
+              gap: 0,
+        
             },
+            540: {
+              perPage: 1,
+            }
+          
           },
         }}
         className="slider_slide"
@@ -66,7 +70,7 @@ const SliderPreview = ({ API_KEY, API_URL, CATEGORY, TYPE, URL_IMAGE }) => {
         {sliderPreview.map((movie) => (
           <SplideSlide key={movie.id}>
             <div
-              style={{ marginBottom: "2rem", cursor: "pointer" }}
+              style={{ marginBottom: "2rem", cursor: "pointer" , display:'flex',justifyContent:'center'}}
               onClick={() => {
                 handlePreviewClick(movie.id);
               }}

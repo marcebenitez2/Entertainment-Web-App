@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from '../../components/nav/sidebar';
 import Search from '../../components/nav/search';
-import GenrePreview from '../../components/genrePreview';
+import GenrePreview from '../../components/GenresGrid/genrePreview';
 
 const TvGenre = () => {
 
@@ -14,7 +14,7 @@ const TvGenre = () => {
 
     return (
         <div className='home'>
-            <Sidebar/>
+            <Sidebar actual_page={"tv_genres"}/>
             <div className='home_body'>
                 <Search API_KEY={API_KEY} API_URL={API_URL} TYPE={"TV"}/>
                 <div>

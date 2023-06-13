@@ -3,17 +3,19 @@ import Home from "./pages/home/home";
 import Searchpage from "./pages/search/searchpage";
 import Error404 from "./pages/404/Error404";
 import { createContext, useState } from "react";
-import MovieGenre from "./pages/genre/movieGenre";
-import TvGenre from "./pages/genre/tvGenre";
-import FilmById from "./pages/film/filmById";
-import Searchbygenre from "./pages/genre/searchbygenre";
+import MovieGenre from "./pages/FIlmByGenres/movieGenre";
+import TvGenre from "./pages/genreList/tvGenre";
+import FilmById from "./pages/film/FIlmPage";
+import Searchbygenre from "./pages/genreList/searchbygenre";
+import Favorite from "./pages/fav/FavoritePage";
 
 export const SearchContext = createContext();
-export const PreviewContext = createContext();
+export const LikeFilms = createContext();
 
 const AppRouting = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [clickPreview, setClickPreview] = useState([]);
+  // const [clickPreview, setClickPreview] = useState([]);
+  const [favorite, setFavorite] = useState([]);
 
   const API_URL = "https://api.themoviedb.org/3";
   const API_KEY = "a5c29d96fe50ca375e2070a79cee4d16";
@@ -23,7 +25,7 @@ const AppRouting = () => {
   return (
     <Router>
       <SearchContext.Provider value={{ searchResults, setSearchResults }}>
-        <PreviewContext.Provider value={{ clickPreview, setClickPreview }}>
+        <LikeFilms.Provider value={{favorite,setFavorite}}>
           <main>
             <Routes>
               <Route path={"/"} element={<Home />} />
@@ -80,9 +82,14 @@ const AppRouting = () => {
                   />
                 }
               />
+
+              <Route
+                path="/favorites"
+                element={<Favorite/>}
+              />
             </Routes>
           </main>
-        </PreviewContext.Provider>
+        </LikeFilms.Provider>
       </SearchContext.Provider>
     </Router>
   );

@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { PreviewContext, SearchContext } from "../../AppRouting";
+import  { useContext } from "react";
+import { SearchContext } from "../../AppRouting";
 import Sidebar from "../../components/nav/sidebar";
 import Search from "../../components/nav/search";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Searchpage = ({ API_URL, API_KEY, URL_IMAGE }) => {
   const { searchResults, setSearchResults } = useContext(SearchContext);
-  console.log(searchResults);
   const { searchkey } = useParams();
   let listresults = searchResults.results;
 

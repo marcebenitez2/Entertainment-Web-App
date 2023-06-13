@@ -15,7 +15,6 @@ const GenrePreview = ({ CATEGORY }) => {
     });
 
     setGridGenre(genres);
-    console.log(gridGenre);
   };
 
   const navigate = useNavigate()

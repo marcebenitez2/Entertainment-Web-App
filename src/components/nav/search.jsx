@@ -8,7 +8,6 @@ const Search = ({ API_KEY, API_URL, TYPE }) => {
   const [searchKey, setSearchKey] = useState("");
   const navigate = useNavigate();
   let typeSearch = TYPE;
-  console.log(typeSearch)
 
   const fetchMoviesByKey = async (searchKey) => {
     const { data: response } = await axios.get(`${API_URL}/search/multi`, {
@@ -18,7 +17,7 @@ const Search = ({ API_KEY, API_URL, TYPE }) => {
       },
     });
     setSearchResults(response);
-    console.log(response);
+
   };
 
   const searchMovies = async (e) => {

@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/nav/sidebar";
 import Search from "../../components/nav/search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
   faStarHalfAlt,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { LikeFilms } from "../../AppRouting";
+
 
 const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
+  const { favorite, setFavorite } = useContext(LikeFilms);
   const params = useParams();
   const [film, setFilm] = useState([]);
   const [credits, setCredits] = useState([]);
-  let lenguaje;
-  let genres = [];
-  let release_date;
-  let average;
+  const [lenguaje, setLenguaje] = useState("");
+  const [genres, setGenres] = useState([]);
+  const [release_date, setReleaseDate] = useState("");
+  const [average, setAverage] = useState(0);
 
   function captureParams(params) {
     let type;
@@ -37,7 +41,6 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
       },
     });
     setFilm(response);
-    console.log("Film:", response);
     fetchCast(type, id);
   };
 
@@ -51,19 +54,18 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
     });
 
     setCredits(cast);
-    console.log("Credits:", cast);
   };
 
   function assignVariables(film) {
     if (film.spoken_languages && film.spoken_languages.length > 0) {
-      lenguaje = film.spoken_languages[0].name;
+      setLenguaje(film.spoken_languages[0].name);
     }
-    genres = film.genres || [];
-    release_date = film.release_date ? film.release_date.slice(0, 4) : "";
-    average = film.vote_average || 0;
+    setGenres(film.genres || []);
+    setReleaseDate(film.release_date ? film.release_date.slice(0, 4) : "");
+    setAverage(film.vote_average || 0);
   }
 
-   function CalcStars(average) {
+  function CalcStars(average) {
     average = Math.round(average * 2) / 2;
     const stars = [];
     const maxStars = 5;
@@ -81,6 +83,28 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
     return stars;
   }
 
+  
+  const [heartToggle, setHeartToggle] = useState(false);
+  
+  const Like = () => {
+    setHeartToggle(!heartToggle);
+    
+    const filmId = film.id;
+    const isFilmFavorite = favorite.some(
+      (favoriteFilm) => favoriteFilm.id === filmId
+    );
+
+    if (isFilmFavorite) {
+      const updatedFavorite = favorite.filter(
+        (favoriteFilm) => favoriteFilm.id !== filmId
+      );
+      setFavorite(updatedFavorite);
+    } else {
+      setFavorite([...favorite, film]);
+    }
+    
+  };
+  
   useEffect(() => {
     captureParams(params);
   }, [params]);
@@ -88,6 +112,11 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
   useEffect(() => {
     assignVariables(film);
   }, [film]);
+  
+  useEffect(() => {
+    localStorage.setItem("favorite", JSON.stringify(favorite));
+  }, [favorite]);
+
 
   return (
     <div className="home">
@@ -97,11 +126,22 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
         <div className="film">
           <img src={`${URL_IMAGE + film.poster_path}`} alt="poster" />
           <div className="film_info">
-            <div>
-              {film.title ? <h1>{film.title}</h1> : <h1>{film.name}</h1>}
-              <h5 style={{ color: "#9c9c9c", fontWeight: "700" }}>
-                {film.tagline}
-              </h5>
+            <div style={{ display: "flex", gap: "10rem" }}>
+              <div>
+                {film.title ? <h1>{film.title}</h1> : <h1>{film.name}</h1>}
+                <h5 style={{ color: "#9c9c9c", fontWeight: "700" }}>
+                  {film.tagline}
+                </h5>
+              </div>
+              {
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  className={
+                    favorite.some((e) => e.id === film.id) ? "heart_toggle_on" : "heart_toggle_off"
+                  }
+                  onClick={Like}
+                />
+              }
             </div>
             <div className="film_average">
               <h2>{film.vote_average}</h2>
