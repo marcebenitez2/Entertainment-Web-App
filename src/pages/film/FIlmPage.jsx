@@ -123,7 +123,7 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
         <div className="film">
           <img src={`${URL_IMAGE + film.poster_path}`} alt="poster" />
           <div className="film_info">
-            <div style={{ display: "flex", gap: "10rem" }}>
+            <div style={{ display: "flex", gap: "2rem" }}>
               <div>
                 {film.title ? <h1>{film.title}</h1> : <h1>{film.name}</h1>}
                 <h5 style={{ color: "#9c9c9c", fontWeight: "700" }}>
