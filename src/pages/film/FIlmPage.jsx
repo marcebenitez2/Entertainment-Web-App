@@ -11,7 +11,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { LikeFilms } from "../../AppRouting";
 
-
 const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
   const { favorite, setFavorite } = useContext(LikeFilms);
   const params = useParams();
@@ -42,6 +41,7 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
     });
     setFilm(response);
     fetchCast(type, id);
+    console.log(response);
   };
 
   const fetchCast = async (type, id) => {
@@ -83,12 +83,11 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
     return stars;
   }
 
-  
   const [heartToggle, setHeartToggle] = useState(false);
-  
+
   const Like = () => {
     setHeartToggle(!heartToggle);
-    
+
     const filmId = film.id;
     const isFilmFavorite = favorite.some(
       (favoriteFilm) => favoriteFilm.id === filmId
@@ -102,9 +101,8 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
     } else {
       setFavorite([...favorite, film]);
     }
-    
   };
-  
+
   useEffect(() => {
     captureParams(params);
   }, [params]);
@@ -112,11 +110,10 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
   useEffect(() => {
     assignVariables(film);
   }, [film]);
-  
+
   useEffect(() => {
     localStorage.setItem("favorite", JSON.stringify(favorite));
   }, [favorite]);
-
 
   return (
     <div className="home">
@@ -137,7 +134,9 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
                 <FontAwesomeIcon
                   icon={faHeart}
                   className={
-                    favorite.some((e) => e.id === film.id) ? "heart_toggle_on" : "heart_toggle_off"
+                    favorite.some((e) => e.id === film.id)
+                      ? "heart_toggle_on"
+                      : "heart_toggle_off"
                   }
                   onClick={Like}
                 />
@@ -150,15 +149,24 @@ const FilmById = ({ API_URL, API_KEY, URL_IMAGE }) => {
             <div className="film_dates">
               <div className="film_date">
                 <span className="date_title">Length</span>
-                <span>{film.runtime} min.</span>
+                <span>
+                  {film.runtime
+                    ? film.runtime
+                    : film.seasons && film.seasons.length}{" "}
+                  <span>
+                    {film.runtime
+                      ? "mins"
+                      : film.seasons && film.seasons.length && "seasons"}
+                  </span>
+                </span>
               </div>
               <div className="film_date">
                 <span className="date_title">Language</span>
                 <span>{lenguaje}</span>
               </div>
               <div className="film_date">
-                <span className="date_title">Year</span>
-                <span>{release_date}</span>
+                <span className="date_title">Date</span>
+                <span>{film.release_date ? film.release_date : film.first_air_date}</span>
               </div>
             </div>
             <div className="film_text">
