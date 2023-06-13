@@ -203,11 +203,12 @@ body {
   background-color: var(--bg-200); /* Color del fondo */
 }
 
-.span{
+.span {
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  /* font-style: italic; */
+  text-decoration: wavy;
+  font-style: italic;
   top: 5px;
 }
 /* --------------------------------SLIDER----------------------------  */
@@ -637,16 +638,14 @@ body {
     margin-left: 0;
   }
 
-  .grid_search{
-    grid-template-columns: repeat(3,1fr);
+  .grid_search {
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 15px;
     width: auto;
   }
-  .grid_search_dates{
+  .grid_search_dates {
     display: none;
   }
-
-
 }
 
 @media screen and (max-width: 1260px) {
@@ -654,10 +653,10 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .img_preview_search{
+  .img_preview_search {
     width: 20vw;
   }
-  .grid_search{
+  .grid_search {
     column-gap: 10px;
   }
 }
@@ -694,7 +693,6 @@ body {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    
   }
 
   .home_logo {
@@ -702,18 +700,16 @@ body {
     padding: 0;
   }
 
-  .grid_search{
-    grid-template-columns: repeat(4,1fr);
+  .grid_search {
+    grid-template-columns: repeat(4, 1fr);
   }
 
-  .span{
+  .span {
     top: 4px;
     width: 100vw;
     text-align: center;
-    /* background-color: red; */
+    font-style: italic;
   }
-
-
 }
 
 @media screen and (max-width: 860px) {
@@ -784,19 +780,19 @@ body {
     height: 25rem;
   }
 
-  .genrefilm_grid{
+  .genrefilm_grid {
     column-gap: 15px;
   }
 
-  .genrefilm_grid img{
+  .genrefilm_grid img {
     width: 35vw;
   }
-  .grid_search{
-    grid-template-columns: repeat(3,1fr);
+  .grid_search {
+    grid-template-columns: repeat(3, 1fr);
     margin: auto;
     column-gap: 1rem;
   }
-  .grid_search img{
+  .grid_search img {
     width: 26vw;
     height: 10rem;
   }

@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import "@splidejs/react-splide/css";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { useNavigate } from "react-router-dom";
+import "@splidejs/splide/dist/css/splide.min.css";
+import "../../../node_modules/@splidejs/splide/dist/js/splide.min.js";
+
+
 
 const SliderPreview = ({ API_KEY, API_URL, CATEGORY, TYPE, URL_IMAGE }) => {
   const [sliderPreview, setSliderPreview] = useState([]);
@@ -40,52 +44,53 @@ const SliderPreview = ({ API_KEY, API_URL, CATEGORY, TYPE, URL_IMAGE }) => {
           <div className="subtitle_type_movie">MOVIE</div>
         )}
       </div>
-
-      <Splide
-        options={{
-          type: "loop",
-          perPage: 5,
-          width: '100%',
-
-          breakpoints: {
-            1626: {
-              perPage: 4,
+  
+      {sliderPreview.length > 0 && ( // Verificar si sliderPreview tiene elementos
+        <Splide
+          options={{
+            type: "loop",
+            perPage: 5,
+            width: '100%',
+            autoplay: true,
+            breakpoints: {
+              1626: {
+                perPage: 4,
+              },
+              1364: {
+                perPage: 3,
+              },
+              830: {
+                perPage: 2,
+                gap: 0,
+              },
+              540: {
+                perPage: 1,
+              }
             },
-            1364: {
-              perPage: 3,
-            },
-            830: {
-              perPage: 2,
-              gap: 0,
-        
-            },
-            540: {
-              perPage: 1,
-            }
-          
-          },
-        }}
-        className="slider_slide"
-      >
-        {sliderPreview.map((movie) => (
-          <SplideSlide key={movie.id}>
-            <div
-              style={{ marginBottom: "2rem", cursor: "pointer" , display:'flex',justifyContent:'center'}}
-              onClick={() => {
-                handlePreviewClick(movie.id);
-              }}
-            >
-              <img
-                src={`${URL_IMAGE + movie.poster_path}`}
-                alt=""
-                className="slider_img"
-              ></img>
-            </div>
-          </SplideSlide>
-        ))}
-      </Splide>
+          }}
+          className="slider_slide"
+        >
+          {sliderPreview.map((movie) => (
+            <SplideSlide key={movie.id}>
+              <div
+                style={{ marginBottom: "2rem", cursor: "pointer" , display:'flex',justifyContent:'center'}}
+                onClick={() => {
+                  handlePreviewClick(movie.id);
+                }}
+              >
+                <img
+                  src={`${URL_IMAGE + movie.poster_path}`}
+                  alt=""
+                  className="slider_img"
+                ></img>
+              </div>
+            </SplideSlide>
+          ))}
+        </Splide>
+      )}
     </div>
   );
+  
 };
 
 export default SliderPreview;
